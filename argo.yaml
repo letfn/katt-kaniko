@@ -20,7 +20,8 @@ spec:
       container:
         image: gcr.io/kaniko-project/executor
         args:
-          - "--context=/src/kaniko"
+          - "--context=/src"
+          - "--dockerfile=Dockerfile.bootstrap"
           - "--destination={{workflow.annotations.destination}}"
           - "--insecure"
   securityContext:
