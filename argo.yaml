@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: defn-
+  annotations:
+    repo: "https://github.com/letfn/katt-kaniko"
+    revision: master
+    destination: "k3d-hub.defn.ooo:5000/kaniko:bootstrap"
+spec:
+  entrypoint: build
+  templates:
+    - name: build
+      inputs:
+        artifacts:
+          - name: source
+            path: /src
+            git:
+              repo: "{{workflow.annotations.repo}}"
+              revision: "{{workflow.annotations.revision}}"
+      container:
+        image: gcr.io/kaniko-project/executor
+        args:
+          - "--context=/src/kaniko"
+          - "--destination={{workflow.annotations.destination}}"
+          - "--insecure"
+  securityContext:
+    runAsNonRoot: false
