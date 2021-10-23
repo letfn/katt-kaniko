@@ -8,29 +8,12 @@ spec:
     parameters:
       - name: repo
       - name: revision
-      - name: bootstrap_source
-      - name: bootstrap_destination
-      - name: bootstrap_dockerfile
       - name: build_source
       - name: build_destination
       - name: build_dockerfile
   templates:
     - name: build
       steps:
-        - - name: bootstrap
-            template: kaniko-build
-            arguments:
-              parameters:
-                - name: repo
-                  value: "{{workflow.parameters.repo}}"
-                - name: revision
-                  value: "{{workflow.parameters.revision}}"
-                - name: source
-                  value: "{{workflow.parameters.bootstrap_source}}"
-                - name: destination
-                  value: "{{workflow.parameters.bootstrap_destination}}"
-                - name: dockerfile
-                  value: "{{workflow.parameters.bootstrap_dockerfile}}"
         - - name: build
             template: kaniko-build
             arguments:

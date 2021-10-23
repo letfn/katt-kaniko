@@ -1,4 +1,4 @@
-ARG image
+ARG IMAGE
 
 FROM $IMAGE
 
