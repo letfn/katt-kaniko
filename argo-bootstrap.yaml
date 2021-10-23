@@ -23,8 +23,8 @@ spec:
         args:
           - "--context=/src"
           - "--dockerfile=Dockerfile.bootstrap"
-          - "--destination={{workflow.annotations.destination}}"
           - "--insecure"
+          - "--destination={{workflow.annotations.destination}}"
           - "--build-arg"
           - "IMAGE={{workflow.annotations.source}}"
   securityContext:
