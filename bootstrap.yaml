@@ -1,0 +1,5 @@
+repo: https://github.com/letfn/katt-kaniko
+revision: master
+source: gcr.io/kaniko-project/executor:v1.6.0-debug
+destination: k3d-hub.defn.ooo:5000/kaniko-project/executor:v1.6.0-debug
+dockerfile: Dockerfile.bootstrap

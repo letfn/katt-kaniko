@@ -18,16 +18,16 @@ spec:
           - name: source
             path: /src
             git:
-              repo: "{{inputs.parameters.repo}}"
-              revision: "{{inputs.parameters.revision}}"
+              repo: "{{workflow.parameters.repo}}"
+              revision: "{{workflow.parameters.revision}}"
       container:
         image: gcr.io/kaniko-project/executor
         args:
           - "--context=/src"
-          - "--dockerfile={{inputs.parameters.dockerfile}}"
-          - "--insecure"
-          - "--destination={{inputs.parameters.destination}}"
+          - "--dockerfile={{workflow.parameters.dockerfile}}"
+          - "--destination={{workflow.parameters.destination}}"
           - "--build-arg"
-          - "IMAGE={{inputs.parameters.source}}"
+          - "IMAGE={{workflow.parameters.source}}"
+          - "--insecure"
   securityContext:
     runAsNonRoot: false

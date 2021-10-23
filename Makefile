@@ -8,4 +8,4 @@ default:
 	pc
 
 %:
-	argo submit --log -f $(first).json argo-$(first).yaml
+	argo submit --log -f $(first).yaml argo-$(first).yaml
