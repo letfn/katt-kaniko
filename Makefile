@@ -7,5 +7,5 @@ default:
 	git add -u .
 	pc
 
-%:
-	argo submit --log -f $(first).yaml argo-$(first).yaml
+build:
+	argo submit --log -f params.yaml argo.yaml
