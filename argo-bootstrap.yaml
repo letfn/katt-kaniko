@@ -7,8 +7,16 @@ metadata:
     revision: master
     source: "gcr.io/kaniko-project/executor:v1.6.0-debug"
     destination: "k3d-hub.defn.ooo:5000/kaniko-project/executor:v1.6.0-debug"
+    dockerfile: Dockerfile.bootstrap
 spec:
   entrypoint: build
+  arguments:
+    parameters:
+      - name: repo
+      - name: revision
+      - name: source
+      - name: destination
+      - name: dockerfile
   templates:
     - name: build
       inputs:
@@ -16,16 +24,16 @@ spec:
           - name: source
             path: /src
             git:
-              repo: "{{workflow.annotations.repo}}"
-              revision: "{{workflow.annotations.revision}}"
+              repo: "{{inputs.parameters.repo}}"
+              revision: "{{inputs.parameters.revision}}"
       container:
         image: gcr.io/kaniko-project/executor
         args:
           - "--context=/src"
-          - "--dockerfile=Dockerfile.bootstrap"
+          - "--dockerfile={{inputs.parameters.dockerfile}}"
           - "--insecure"
-          - "--destination={{workflow.annotations.destination}}"
+          - "--destination={{inputs.parameters.destination}}"
           - "--build-arg"
-          - "IMAGE={{workflow.annotations.source}}"
+          - "IMAGE={{inputs.parameters.source}}"
   securityContext:
     runAsNonRoot: false
